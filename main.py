@@ -4,6 +4,8 @@ import tools.memory_tool as mry
 import logging
 import os
 
+from conversation import clear_conversation_context
+
 
 print("HELLO, TURING HERE!!")
 
@@ -46,7 +48,7 @@ messages = [
                "\n".join(f"- {memory}" for memory in old_memories)
     }
 ]
-
+INITIAL_CONTEXT_LENGTH = len(messages)
 
 
 
@@ -119,6 +121,11 @@ while True:
     if user_message.lower() == "exit":
         print("Goodbye!")
         break
+
+    if user_message.lower() == "/clear":
+        clear_conversation_context(messages, INITIAL_CONTEXT_LENGTH)
+        print("Conversation context cleared.")
+        continue
 
 
     # Add user message to memory
